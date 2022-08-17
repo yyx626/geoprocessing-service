@@ -1,10 +1,6 @@
 package com.ruoyi.web.controller.geotools;
 
 
-import com.graphbuilder.geom.Geom;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import jj2000.j2k.codestream.CoordInfo;
-import jj2000.j2k.codestream.CorruptedCodestreamException;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.coverage.grid.io.AbstractGridCoverage2DReader;
 import org.geotools.coverage.grid.io.AbstractGridFormat;
@@ -17,7 +13,6 @@ import org.geotools.data.geojson.GeoJSONWriter;
 import org.geotools.data.shapefile.ShapefileDataStore;
 import org.geotools.data.shapefile.ShapefileDataStoreFactory;
 import org.geotools.data.simple.SimpleFeatureCollection;
-import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.data.simple.SimpleFeatureStore;
 import org.geotools.feature.FeatureIterator;
@@ -32,18 +27,15 @@ import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.referencing.GeodeticCalculator;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.locationtech.jts.algorithm.PointLocator;
-import org.locationtech.jts.edgegraph.HalfEdge;
 import org.locationtech.jts.geom.*;
 import org.opengis.coverage.Coverage;
 import org.opengis.coverage.grid.GridCoverage;
-import org.opengis.coverage.grid.GridEnvelope;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.parameter.GeneralParameterValue;
 import org.opengis.parameter.ParameterValue;
 import org.opengis.parameter.ParameterValueGroup;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
-import org.w3.xlink.Simple;
 
 import java.awt.image.Raster;
 import java.awt.image.RenderedImage;
