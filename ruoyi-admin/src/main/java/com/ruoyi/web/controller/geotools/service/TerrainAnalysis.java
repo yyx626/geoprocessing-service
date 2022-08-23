@@ -222,6 +222,17 @@ public class TerrainAnalysis {
         int peakIndex =CommonMethod.findPeakIndex(resultList,"gridCode");
         // 1-绿色可视 2-红色不可视
         List<Map> lineList =new ArrayList<>();
+        if(peakIndex == resultList.size()-1){
+            Map map =new HashMap();
+            Geometry lineString= CommonMethod.createLineString(points);
+            map.put("geometry",lineString);
+            map.put("visCode",1);
+            lineList.add(map);
+            String geoJson = CommonMethod.createGeoJson(lineList,"LineString","visCode");
+            long end = System.currentTimeMillis();
+            System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+            return geoJson;
+        }
         for (int i = 0; i < resultList.size(); i++) {
             if(i==peakIndex){
                 Map map =new HashMap();

@@ -428,6 +428,10 @@ public class CommonMethod {
                 break;
             }
         }
+        // 不存在峰值
+        if(resultIndex == 0){
+            resultIndex = list.size() - 1;
+        }
         return resultIndex;
     }
 
