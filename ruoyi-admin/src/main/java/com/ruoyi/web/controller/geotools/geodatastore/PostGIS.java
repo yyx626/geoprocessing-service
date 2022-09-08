@@ -12,7 +12,6 @@ import java.util.Map;
 
 /**
  * @author yyx
- * @date 2022/8/18 - 上午 11:22
  */
 public class PostGIS {
     /**
@@ -23,10 +22,10 @@ public class PostGIS {
      * @param userName:  用户名
      * @param password:  密码
      * @param tableName: 需要连接的表名
-     * @return: 返回为FeatureCollection类型
+     * @return 返回为FeatureCollection类型
      */
     public static SimpleFeatureCollection connAndGetCollection(String dbType, String host, String port, String database, String userName, String password, String tableName) {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         DataStore pgDatastore = null;
         params.put(PostgisNGDataStoreFactory.DBTYPE.key, dbType); //需要连接何种数据库，postgis or mysql
         params.put(PostgisNGDataStoreFactory.HOST.key, host);//ip地址
@@ -56,4 +55,5 @@ public class PostGIS {
         }
         return fcollection;
     }
+
 }

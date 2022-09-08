@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.R;
 import com.ruoyi.web.controller.geotools.CommonMethod;
+import com.ruoyi.web.controller.geotools.geodatastore.PostGIS;
 import com.ruoyi.web.controller.geotools.service.TerrainAnalysis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.geotools.data.geojson.GeoJSONWriter;
+import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.feature.SchemaException;
 import org.locationtech.jts.geom.Geometry;
 import org.opengis.referencing.operation.TransformException;
@@ -80,4 +83,20 @@ public class GeoController extends BaseController {
         String result = TerrainAnalysis.viewShed(point, JSON.parse(geoJson).toString());
         return R.ok(result, "success");
     }
+
+    @ApiOperation("readFeatureCollection from PostGIS")
+    @PostMapping("/readFeatures")
+    @ResponseBody
+    public R<String> readFeatures() {
+        long start = System.currentTimeMillis();
+        System.out.println("开始从PostGIS读取features");
+
+        SimpleFeatureCollection fc = PostGIS.connAndGetCollection("postgis", "localhost", "5432", "geodb", "postgres", "123456", "contour");
+        String json = GeoJSONWriter.toGeoJSON(fc);
+
+        long end = System.currentTimeMillis();
+        System.out.println("用时" + (end - start) + "毫秒...");
+        return R.ok(json,"success");
+    }
+
 }
