@@ -27,8 +27,11 @@ import java.util.Map;
  * @date 2022/8/16 - 上午 9:14
  */
 public class TerrainAnalysis {
-    public static String demPath = "C:\\Users\\dell\\Desktop\\geotools-data\\安徽省_高程_Level_13.tif";
-    public static String clippedTiff = "C:\\Users\\dell\\Desktop\\geotools-data\\clippedTiff.tif";
+
+    // input file
+    public static String demPath = "assets/data/安徽省_高程_Level_13.tif";
+    // output file
+    public static String clippedTiff = "assets/data/clippedTiff.tif";
 
     /**
      * 提取等高线
