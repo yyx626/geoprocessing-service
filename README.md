@@ -20,7 +20,7 @@
 
 + Choose to Run or Debug 'RuoYiApplication' to start the server.
 
-+ http://localhost:8080/
++ http://localhost:6007/
 + userName: admin
 + password: admin123
 
