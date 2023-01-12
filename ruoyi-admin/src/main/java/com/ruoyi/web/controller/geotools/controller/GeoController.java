@@ -72,8 +72,8 @@ public class GeoController extends BaseController {
     @PostMapping("/viewShed")
     @ResponseBody
     public R<String> getViewShed(String viewPoint, String geoJson) throws SchemaException, IOException, TransformException {
-        if (viewPoint.length() == 0) return R.fail("未设置观察点！");
-        if (geoJson.length() == 0) return R.fail("未绘制视域！");
+        if (viewPoint.length() == 0) return R.fail("Observation point not set!");
+        if (geoJson.length() == 0) return R.fail("Viewshed not drawn!");
         // 观察点坐标
         String[] arr = viewPoint.split(",");
         double[] point = new double[2];
@@ -81,7 +81,7 @@ public class GeoController extends BaseController {
         point[1] = Double.parseDouble(arr[1]);
         // 判断观察点是否在视域范围内
         List<Geometry> geometries = CommonMethod.readGeoJson(JSON.parse(geoJson).toString());
-        if (!CommonMethod.isPointInPolygon(point, geometries.get(0))) return R.fail("观察点不在视域范围内，重新绘制！");
+        if (!CommonMethod.isPointInPolygon(point, geometries.get(0))) return R.fail("The observation point is not within the scope of view, redraw!");
         String result = TerrainAnalysis.viewShed(point, JSON.parse(geoJson).toString());
         return R.ok(result, "success");
     }
