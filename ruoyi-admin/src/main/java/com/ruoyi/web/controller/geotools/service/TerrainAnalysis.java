@@ -43,13 +43,13 @@ public class TerrainAnalysis {
      */
     public static String calContour(String geoJson, Double interval) throws IOException {
         long start = System.currentTimeMillis();
-        System.out.println("开始提取等高线...");
+        System.out.println("Start extracting contour lines...");
         Coverage coverage = CommonMethod.clipByGeoJson(geoJson, TerrainAnalysis.demPath);
         GridCoverage2D gridCoverage2D = (GridCoverage2D) coverage;
         SimpleFeatureCollection result = ContourProcess.process(gridCoverage2D, null, null, interval, null, null, null, null);
         String geoJSON = GeoJSONWriter.toGeoJSON(result);
         long end = System.currentTimeMillis();
-        System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+        System.out.println("Successful extraction in " + (end - start) + " ms...");
         return geoJSON;
     }
 
@@ -63,7 +63,7 @@ public class TerrainAnalysis {
      */
     public static String calSlope(String geoJson) throws IOException, SchemaException {
         long start = System.currentTimeMillis();
-        System.out.println("开始坡度分析...");
+        System.out.println("Start slope analysis...");
         String inputTiff = TerrainAnalysis.demPath;
         String clippedTiff = TerrainAnalysis.clippedTiff;
 
@@ -77,7 +77,7 @@ public class TerrainAnalysis {
         String result = topographyAlgorithm.calculateSlope();
 
         long end = System.currentTimeMillis();
-        System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+        System.out.println("Successful extraction in " + (end - start) + " ms...");
         return result;
     }
 
@@ -91,7 +91,7 @@ public class TerrainAnalysis {
      */
     public static String calAspect(String geoJson) throws IOException, SchemaException {
         long start = System.currentTimeMillis();
-        System.out.println("开始坡向分析...");
+        System.out.println("Start aspect analysis...");
         String inputTiff = TerrainAnalysis.demPath;
         String clippedTiff = TerrainAnalysis.clippedTiff;
 
@@ -105,7 +105,7 @@ public class TerrainAnalysis {
         String result = topographyAlgorithm.calculateAspect();
 
         long end = System.currentTimeMillis();
-        System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+        System.out.println("Successful extraction in " + (end - start) + " ms...");
         return result;
     }
 
@@ -120,7 +120,7 @@ public class TerrainAnalysis {
      */
     public static String getTerrainFactors(double lon, double lat) throws IOException, TransformException {
         long start = System.currentTimeMillis();
-        System.out.println("开始提取地形因子...");
+        System.out.println("Start extracting terrain factors...");
         Map tiffMap = CommonMethod.readTiffFile(TerrainAnalysis.demPath);
         double cellSize = (double) tiffMap.get("cellSize");
         GridCoverage2D coverage = (GridCoverage2D) tiffMap.get("coverage");
@@ -140,7 +140,7 @@ public class TerrainAnalysis {
         map.put("slope", slope);
         map.put("aspect", aspect);
         long end = System.currentTimeMillis();
-        System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+        System.out.println("Successful extraction in " + (end - start) + " ms...");
         return JSON.toJSONString(map);
     }
 
@@ -156,7 +156,7 @@ public class TerrainAnalysis {
      */
     public static String viewShed(double[] point, String viewAreaGeoJson) throws IOException, SchemaException, TransformException {
         long start = System.currentTimeMillis();
-        System.out.println("开始视域通视分析...");
+        System.out.println("Start viewshed analysis...");
         String inputTiff = TerrainAnalysis.demPath;
         String clippedTiff = TerrainAnalysis.clippedTiff;
 
@@ -170,7 +170,7 @@ public class TerrainAnalysis {
         String result = topographyAlgorithm.calculateViewShed(point);
 
         long end = System.currentTimeMillis();
-        System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+        System.out.println("Successful extraction in " + (end - start) + " ms...");
         return result;
     }
 
@@ -183,7 +183,7 @@ public class TerrainAnalysis {
      */
     public static String lineOfSign(String coordinates) throws IOException, SchemaException {
         long start = System.currentTimeMillis();
-        System.out.println("开始视线通视分析...");
+        System.out.println("Starting line of sight view analysis...");
         Map tiffMap = CommonMethod.readTiffFile(TerrainAnalysis.demPath);
         double cellSize = (double) tiffMap.get("cellSize");
         GridCoverage2D coverage = (GridCoverage2D) tiffMap.get("coverage");
@@ -233,7 +233,7 @@ public class TerrainAnalysis {
             lineList.add(map);
             String geoJson = CommonMethod.createGeoJson(lineList,"LineString","visCode");
             long end = System.currentTimeMillis();
-            System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+            System.out.println("Successful extraction in " + (end - start) + " ms...");
             return geoJson;
         }
         for (int i = 0; i < resultList.size(); i++) {
@@ -258,7 +258,7 @@ public class TerrainAnalysis {
         }
         String geoJson = CommonMethod.createGeoJson(lineList,"LineString","visCode");
         long end = System.currentTimeMillis();
-        System.out.println("提取成功，用时" + (end - start) + "毫秒...");
+        System.out.println("Successful extraction in " + (end - start) + " ms...");
         return geoJson;
     }
 }
